@@ -1,75 +1,90 @@
 #include <iostream>
-#include <cstring>
-#include <cmath>
+#include <math.h>
 
 using namespace std;
 
-class Forme {
-    public:
-        float h;
-        string f;
-        float gem;
-        float frisca;
-//        bool stop;
-        Forme(float h, string f, float gem, float frisca) {
-            this->h = h;
-            this->f = f;
-            this->gem = gem;
-            this->frisca = frisca;
+class Numar_Complex {
+private:
+    double real;
+    double imag;
+
+public:
+    Numar_Complex(double real_, double imag_) {
+        real = real_;
+        imag = imag_;
+    }
+
+    void setReal(double real_) {
+        real = real_;
+    }
+
+    void setImag(double imag_) {
+        imag = imag_;
+    }
+
+    double getReal() {
+        return real;
+    }
+
+    double getImag() {
+        return imag;
+    }
+
+    void afisare() {
+        if (imag < 0) {
+            if (real == 0)
+                cout << "-i*" << abs(imag) << endl;
+            else
+                cout << real << "-i*" << abs(imag) << endl;
+        } else if (imag == 0)
+            cout << real << endl;
+        else {
+            if (real == 0)
+                cout << "i*" << abs(imag) << endl;
+            else
+                cout << real << "+i*" << abs(imag) << endl;
         }
+    }
+
+    double modul() {
+        return sqrt(real*real + imag*imag);
+    }
+
+    Numar_Complex operator+(Numar_Complex const &obj) {
+        Numar_Complex rez(0, 0);
+        rez.real = real + obj.real;
+        rez.imag = imag + obj.imag;
+        return rez;
+    }
+
+    Numar_Complex operator*(Numar_Complex const &obj) {
+        Numar_Complex rez(0, 0);
+        rez.real = real*obj.real - imag*obj.imag;
+        rez.imag = real*obj.imag + imag*obj.real;
+        return rez;
+    }
+
+    Numar_Complex operator/(Numar_Complex const &obj) {
+        Numar_Complex rez(0, 0);
+        rez.real = (real*obj.real + imag*obj.imag)/(obj.real*obj.real + obj.imag*obj.imag);
+        rez.imag = (imag*obj.real - real*obj.imag)/(obj.real*obj.real + obj.imag*obj.imag);
+        return rez;
+    }
 };
 
-Forme* rez[100];
-int c = 0;
-void add(float h, string f) {
-    float frisca = 0, gem = 0;
-    Forme* forma = new Forme(h, f, gem, frisca);
-    if (f == "cerc") {
-        float r;
-        cin >> r;
-        frisca = M_PI * r * r;
-        gem = frisca * forma->h;
-    } else if (f == "patrat") {
-        float l;
-        cin >> l;
-        frisca = l * l;
-        gem = frisca * forma->h;
-    } else if (f == "dreptunghi") {
-        float lun, lat;
-        cin >> lun >> lat; // lungime, latime
-        frisca = lun * lat;
-        gem = frisca * forma->h;
-    } else if (f == "triunghi") {
-        float c1, c2;
-        cin >> c1 >> c2;
-        frisca = c1 * c2;
-        gem = frisca * forma->h;
-    }
-    forma->gem = gem;
-    forma->frisca = frisca;
-    c++;
-}
-
 int main() {
-    float h, gem = 0, frisca = 0;
-    string f;
-    bool s = true;
-    cin >> h;
-    cin >> f;
-//    Forme forma(h, f, gem, frisca, s);
 
-    cout << frisca << ' ' << gem;
+    Numar_Complex c1(2, -3);
+    Numar_Complex c2 = c1;
+    c2.setImag(5);
 
-    while (s) {
-        string cmd;
-        cin >> cmd;
-        if (cmd == "STOP")
-            s = false;
-        if (cmd == "ADD") {
-//            add();
-        }
-    }
+    c1.afisare();
+    c2.afisare();
 
+    Numar_Complex c3 = c1 + c2, c4 = c1 * c2, c5 = c1 / c2;
+    c3.afisare();
+    c4.afisare();
+    c5.afisare();
 
     return 0;
 }
