@@ -14,6 +14,11 @@ public:
         imag = imag_;
     }
 
+    Numar_Complex(const Numar_Complex &obj) {
+        real = obj.real;
+        imag = obj.imag;
+    }
+
     void setReal(double real_) {
         real = real_;
     }
