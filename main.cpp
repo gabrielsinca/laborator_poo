@@ -1,95 +1,160 @@
 #include <iostream>
-#include <math.h>
+#include <utility>
+#include <vector>
+#include <cstring>
 
 using namespace std;
 
-class Numar_Complex {
+class Teatru {
 private:
-    double real;
-    double imag;
+    char* denumirePiesa;
+    int numarActori;
+    vector<tuple<string, int>> actori;
+    float rating;
 
 public:
-    Numar_Complex(double real_, double imag_) {
-        real = real_;
-        imag = imag_;
+    Teatru(const char* denumirePiesa_, int numarActori_, vector<tuple<string, int>> actori_, float rating_) {
+        size_t len = strlen(denumirePiesa_);
+        denumirePiesa = new char[len];
+        strcpy(denumirePiesa, denumirePiesa_);
+        numarActori = numarActori_;
+        actori = std::move(actori_);
+        rating = rating_;
     }
 
-    Numar_Complex(const Numar_Complex &obj) {
-        real = obj.real;
-        imag = obj.imag;
+    // constructor de copiere?
+    Teatru(const Teatru &obj) {
+        size_t len = strlen(obj.denumirePiesa);
+        denumirePiesa = new char[len];
+        strcpy(denumirePiesa, obj.denumirePiesa);
+        numarActori = obj.numarActori;
+        actori = obj.actori;
+        rating = obj.rating;
     }
 
-    void setReal(double real_) {
-        real = real_;
+    // constructor default pentru citire
+    Teatru() {
+        denumirePiesa = new char[256]; // aici e ok daca las asa? alta idee nu mi-a venit.
+        strcpy(denumirePiesa, "empty");
+        numarActori = 0;
+        actori.clear();
+        rating = 0;
+
+    };
+
+    // e complet desctructorul?
+    ~Teatru() {
+        delete[] denumirePiesa;
+        actori.clear();
     }
 
-    void setImag(double imag_) {
-        imag = imag_;
+    // gettere si settere:
+    char* getDenumirePiesa() const {
+        return denumirePiesa;
     }
 
-    double getReal() {
-        return real;
+    void setDenumirePiesa(char* denumirePiesa_) {
+        delete[] denumirePiesa;
+        size_t len = strlen(denumirePiesa_);
+        denumirePiesa = new char[len];
+        strcpy(denumirePiesa, denumirePiesa_);
     }
 
-    double getImag() {
-        return imag;
+    int getNumarActori() const {
+        return numarActori;
     }
 
-    void afisare() {
-        if (imag < 0) {
-            if (real == 0)
-                cout << "-i*" << abs(imag) << endl;
-            else
-                cout << real << "-i*" << abs(imag) << endl;
-        } else if (imag == 0)
-            cout << real << endl;
-        else {
-            if (real == 0)
-                cout << "i*" << abs(imag) << endl;
-            else
-                cout << real << "+i*" << abs(imag) << endl;
+    void setNumarActori(int numarActori_) {
+        numarActori = numarActori_;
+    }
+
+    vector<tuple<string, int>> getActori() const {
+        return actori;
+    }
+
+    void setActori(vector<tuple<string, int>> actori_) {
+        actori = std::move(actori_);
+    }
+
+    float getRating() const {
+        return rating;
+    }
+
+    void setRating(float rating_) {
+        rating = rating_;
+    }
+
+    // operator overloading
+    friend ostream &operator<<(ostream &os, const Teatru &teatru) {
+        os << "Denumire Piesa: "<< teatru.denumirePiesa << "\nNumar actori: " << teatru.numarActori << "\nActori: ";
+        for (auto actor : teatru.actori) {
+            os << get<0>(actor) << ", in varsta de " << get<1>(actor) << " (de) ani; ";
         }
+        os << "Rating " << teatru.rating << "/5.\n";
+        return os;
     }
 
-    double modul() {
-        return sqrt(real*real + imag*imag);
+    friend istream &operator>>(istream &is, Teatru &teatru) {
+        cout << "Denumire piesa: ";
+        is.getline(teatru.denumirePiesa, 256);
+        cout << "\nNumarul actorilor: ";
+        is >> teatru.numarActori;
+        is.get();
+        int varsta;
+        char *nume;
+        cout << "\nDetalii despre actori: ";
+        for (int i = 0; i < teatru.numarActori; i++) {
+            cout << "\nNume: ";
+            is.getline(nume, 256);
+            cout << "\nVarsta: ";
+            is >> varsta;
+            is.get();
+            std::string str(nume);
+            teatru.actori.emplace_back(nume, varsta);
+        }
+        cout << "\nRating: ";
+        is >> teatru.rating;
+        is.get();
+        return is;
     }
 
-    Numar_Complex operator+(Numar_Complex const &obj) {
-        Numar_Complex rez(0, 0);
-        rez.real = real + obj.real;
-        rez.imag = imag + obj.imag;
-        return rez;
+    bool operator>(const Teatru &teatru) const {
+        return rating > teatru.rating;
     }
 
-    Numar_Complex operator*(Numar_Complex const &obj) {
-        Numar_Complex rez(0, 0);
-        rez.real = real*obj.real - imag*obj.imag;
-        rez.imag = real*obj.imag + imag*obj.real;
-        return rez;
+    bool operator<(const Teatru &teatru) const {
+        return rating < teatru.rating;
     }
 
-    Numar_Complex operator/(Numar_Complex const &obj) {
-        Numar_Complex rez(0, 0);
-        rez.real = (real*obj.real + imag*obj.imag)/(obj.real*obj.real + obj.imag*obj.imag);
-        rez.imag = (imag*obj.real - real*obj.imag)/(obj.real*obj.real + obj.imag*obj.imag);
-        return rez;
+    // compararea de aici se face tot pe baza de rating??
+    bool operator!=(const Teatru &teatru) const {
+        return !(teatru == *this);
+    }
+    // si aici la fel??
+    bool operator==(const Teatru &teatru) const {
+        return strcmp(denumirePiesa, teatru.denumirePiesa) == 0 &&
+               numarActori == teatru.numarActori &&
+               actori == teatru.actori &&
+               rating == teatru.rating;
+    }
+
+    // e bine cum am facut overloading aici?
+    void operator=(Teatru &teatru) {
+        strcpy(teatru.denumirePiesa, denumirePiesa);
+        teatru.numarActori = numarActori;
+        teatru.actori = actori;
+        teatru.rating = rating;
     }
 };
 
 int main() {
 
-    Numar_Complex c1(2, -3);
-    Numar_Complex c2 = c1;
-    c2.setImag(5);
-
-    c1.afisare();
-    c2.afisare();
-
-    Numar_Complex c3 = c1 + c2, c4 = c1 * c2, c5 = c1 / c2;
-    c3.afisare();
-    c4.afisare();
-    c5.afisare();
+    Teatru teatru1, teatru2;
+    cin >> teatru1;// >> teatru2;
+    // Process finished with exit code 139 (interrupted by signal 11: SIGSEGV), cum rezolv ??, asta daca citesc doar un teatru
+    // Process finished with exit code 132 (interrupted by signal 4: SIGILL), cum rezolv ??, asta daca citesc 2 teatre;
+    cout << teatru1;// << teatru2;
+    // daca folosesc acelasi cod pe proiectul asta imi da exit code 134 (interrupted by signal 6: SIGABRT)
 
     return 0;
 }
