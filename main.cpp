@@ -1,9 +1,11 @@
 #include <iostream>
+#include "memory"
+#include "./classes/Magazin.h"
 #include "./classes/produse/Produs.h"
 #include "./classes/produse/tipuri/varza/Varza.h"
-#include "./classes/Magazin.h"
 #include "./classes/produse/tipuri/faina/FainaCal1.h"
-#include "memory"
+#include "classes/produse/tipuri/faina/FainaCal2.h"
+#include "classes/produse/tipuri/faina/FainaCal3.h"
 
 /*
  * Problema: Magazin
@@ -11,15 +13,23 @@
  * */
 
 int main() {
+/*
+    auto varza = std::make_shared<Varza>(2);
+    auto faina1 = std::make_shared<FainaCal1>(3);
+    auto faina2 = std::make_shared<FainaCal2>(5);
+    auto faina3 = std::make_shared<FainaCal3>(1);
 
-    auto varza2 = std::make_shared<Varza>(0);
-    auto faina = std::make_shared<FainaCal1>(3);
-    auto faina1 = std::make_shared<FainaCal1>(5);
+    Magazin::addStoc(varza);
+    Magazin::addStoc(faina1);
+    Magazin::addStoc(faina2);
+    Magazin::addStoc(faina3);
 
-    faina1 = faina;
-
-    std::cout << faina->getMasura() << ' ' << faina1->getMasura();
-
+    Magazin::showProduse();
+    Magazin::removeFromStoc(std::make_shared<Varza>(1));
+    std::cout<<"=============\n";
+    Magazin::showProduse();
+*/
+    Magazin::run();
 
     return 0;
 }

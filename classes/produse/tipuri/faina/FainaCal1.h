@@ -12,7 +12,7 @@ private:
     static float pret;
 
 public:
-//    FainaCal1();
+    FainaCal1();
     FainaCal1(float kg);
     FainaCal1(const FainaCal1 &obj);
 

@@ -61,3 +61,5 @@ FainaCal3 &FainaCal3::operator=(const FainaCal3 &obj) {
     setMasura(obj.getMasura());
     return *this;
 }
+
+FainaCal3::FainaCal3() {}

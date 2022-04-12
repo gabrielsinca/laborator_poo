@@ -7,6 +7,8 @@
 #include "memory"
 #include "vector"
 #include "./produse/Produs.h"
+#include "exceptii.h"
+
 /*
  * In clasa asta voi avea date necesare pentru magazin, ex: stoc etc.
  *              + un metoda run() care e practic meniul
@@ -15,7 +17,7 @@
 class Magazin {
 private:
     static std::vector<std::shared_ptr<Produs>> stoc; // produs si stocul produsului
-    static float  bani;
+    static float bani;
 
 public:
     static void removeFromStoc(const std::shared_ptr<Produs> &produs); // update cand un produs este vandut;
@@ -23,5 +25,10 @@ public:
     static void showProduse();
     static const std::vector<std::shared_ptr<Produs>> &getStoc();
     static void run();
+
+    static void clientHelp();
+    static void clientLoop();
+    static void proprietarLoop();
+    static void proprietarHelp();
 };
 #endif //OOP_MAGAZIN_H

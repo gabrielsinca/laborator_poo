@@ -11,7 +11,7 @@ private:
     static float pret;
 
 public:
-//    Varza();
+    Varza();
     Varza(float bucati);
     Varza(const Varza &obj);
     ~Varza() override;

@@ -53,3 +53,5 @@ Varza &Varza::operator=(const Varza &obj) {
 }
 
 Varza::~Varza() {}
+
+Varza::Varza() { }
