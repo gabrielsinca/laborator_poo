@@ -24,7 +24,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp classes/Magazin.cpp classes/Magazin.h classes/produse/Produs.cpp classes/produse/Produs.h classes/produse/tipuri/varza/Varza.cpp classes/produse/tipuri/varza/Varza.h classes/produse/tipuri/faina/Faina.cpp classes/produse/tipuri/faina/Faina.h classes/produse/tipuri/faina/FainaCal1.cpp classes/produse/tipuri/faina/FainaCal1.h classes/produse/tipuri/faina/FainaCal2.cpp classes/produse/tipuri/faina/FainaCal2.h classes/produse/tipuri/faina/FainaCal3.cpp classes/produse/tipuri/faina/FainaCal3.h classes/exceptii.cpp classes/exceptii.h)
+add_executable(${PROJECT_NAME} main.cpp classes/Magazin.cpp classes/Magazin.h classes/produse/Produs.cpp classes/produse/Produs.h classes/produse/tipuri/varza/Varza.cpp classes/produse/tipuri/varza/Varza.h classes/produse/tipuri/faina/Faina.cpp classes/produse/tipuri/faina/Faina.h classes/produse/tipuri/faina/FainaCal1.cpp classes/produse/tipuri/faina/FainaCal1.h classes/produse/tipuri/faina/FainaCal2.cpp classes/produse/tipuri/faina/FainaCal2.h classes/produse/tipuri/faina/FainaCal3.cpp classes/produse/tipuri/faina/FainaCal3.h classes/Exceptii.cpp classes/Exceptii.h)
 
 ###############################################################################
 

@@ -7,7 +7,7 @@
 #include "memory"
 #include "vector"
 #include "./produse/Produs.h"
-#include "exceptii.h"
+#include "Exceptii.h"
 
 /*
  * In clasa asta voi avea date necesare pentru magazin, ex: stoc etc.

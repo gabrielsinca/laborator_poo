@@ -7,6 +7,7 @@
 #include "produse/tipuri/faina/FainaCal1.h"
 #include "produse/tipuri/faina/FainaCal2.h"
 #include "produse/tipuri/faina/FainaCal3.h"
+#include "Exceptii.h"
 #include <utility>
 
 std::vector<std::shared_ptr<Produs>> Magazin::stoc;
@@ -107,29 +108,49 @@ void Magazin::clientLoop() {
                     std::cout << "Cate bucati de varza vrei sa cumperi?\n";
                     std::cin >> masura;
                     varza->setMasura(masura);
-                    cos.push_back(varza);
-                    bani += varza->calculeazaCost(masura);
+                    try {
+                        cos.push_back(varza);
+                        removeFromStoc(varza);
+                        bani += varza->calculeazaCost(masura);
+                    } catch (const TooManyProductsException &e) {
+                        std::cout << e.what() << '\n';
+                    }
                 } else if (prod == 2) {
                     auto faina = std::make_shared<FainaCal1>();
                     std::cout << "Cate kilograme de faina vrei sa cumperi?\n";
                     std::cin >> masura;
                     faina->setMasura(masura);
-                    cos.push_back(faina);
-                    bani += faina->calculeazaCost(masura);
+                    try {
+                        cos.push_back(faina);
+                        removeFromStoc(faina);
+                        bani += faina->calculeazaCost(masura);
+                    } catch (const TooManyProductsException &e) {
+                        std::cout << e.what() << '\n';
+                    }
                 } else if (prod == 3) {
                     auto faina = std::make_shared<FainaCal2>();
                     std::cout << "Cate kilograme de faina vrei sa cumperi?\n";
                     std::cin >> masura;
                     faina->setMasura(masura);
-                    cos.push_back(faina);
-                    bani += faina->calculeazaCost(masura);
+                    try {
+                        cos.push_back(faina);
+                        removeFromStoc(faina);
+                        bani += faina->calculeazaCost(masura);
+                    } catch (const TooManyProductsException &e) {
+                        std::cout << e.what() << '\n';
+                    }
                 } else if (prod == 4) {
                     auto faina = std::make_shared<FainaCal3>();
                     std::cout << "Cate kilograme de faina vrei sa cumperi?\n";
                     std::cin >> masura;
                     faina->setMasura(masura);
-                    cos.push_back(faina);
-                    bani += faina->calculeazaCost(masura);
+                    try {
+                        cos.push_back(faina);
+                        removeFromStoc(faina);
+                        bani += faina->calculeazaCost(masura);
+                    } catch (const TooManyProductsException &e) {
+                        std::cout << e.what() << '\n';
+                    }
                 } else std::cout<<"Nu ai introdus un numar corect!\n";
 
                 break;
