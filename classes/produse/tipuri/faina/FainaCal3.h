@@ -5,6 +5,7 @@
 #ifndef OOP_FAINACAL3_H
 #define OOP_FAINACAL3_H
 #include "Faina.h"
+#include <memory>
 
 class FainaCal3 : public Faina{
 private:

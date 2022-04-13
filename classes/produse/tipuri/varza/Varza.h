@@ -5,6 +5,7 @@
 #ifndef OOP_VARZA_H
 #define OOP_VARZA_H
 #include "./../../Produs.h"
+#include <memory>
 
 class Varza : public Produs {
 private:

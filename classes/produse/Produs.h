@@ -5,6 +5,7 @@
 #ifndef OOP_Produs_H
 #define OOP_Produs_H
 #include <iostream>
+#include <memory>
 
 enum class TipProdus {
     Varza,
