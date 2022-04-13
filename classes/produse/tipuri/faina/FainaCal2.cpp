@@ -6,9 +6,7 @@
 
 float FainaCal2::pret = 4;
 
-FainaCal2::FainaCal2(const FainaCal2 &obj) {
-    this->setMasura(obj.getMasura());
-}
+FainaCal2::FainaCal2(const FainaCal2 &obj) : Faina(obj) {}
 
 FainaCal2::FainaCal2(float kg) : Faina(kg) {};
 

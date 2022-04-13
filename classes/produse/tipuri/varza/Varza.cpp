@@ -43,9 +43,7 @@ bool Varza::operator!=(const std::shared_ptr<Produs> &prod) const {
     return !(prod == *this);
 }
 
-Varza::Varza(const Varza &obj) {
-    this->setMasura(obj.getMasura());
-}
+Varza::Varza(const Varza &obj) : Produs(obj){}
 
 Varza &Varza::operator=(const Varza &obj) {
     this->setMasura(obj.getMasura());

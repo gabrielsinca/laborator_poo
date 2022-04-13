@@ -27,7 +27,7 @@ void Produs::setCost(float cost_) {
 Produs::~Produs() { }
 
 Produs::Produs(const Produs &obj) {
-    masura = obj.getMasura();
+    this->setMasura(obj.getMasura());
 }
 
 Produs &Produs::operator=(const Produs &obj) {

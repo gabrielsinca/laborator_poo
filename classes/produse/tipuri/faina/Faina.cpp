@@ -8,9 +8,7 @@ Faina::Faina() {}
 
 Faina::Faina(float kg) : Produs(kg){};
 
-Faina::Faina(const Faina &obj) {
-    this->setMasura(obj.getMasura());
-}
+Faina::Faina(const Faina &obj) : Produs(obj) {}
 
 Faina::~Faina() {}
 
